@@ -1,25 +1,27 @@
 {
-  "name": "worldwise",
-  "version": "1.0.0",
-  "dependencies": {
-    "@biomejs/biome": "^2.2.4",
-    "biome": "^0.3.3",
-    "react": "^19.1.1",
-    "react-dom": "^19.1.1",
-    "react-router-dom": "^7.9.1",
-    "sass": "^1.92.1"
-  },
-  "devDependencies": {
-    "@vitejs/plugin-react": "^4.7.0",
-    "vite": "^7.1.5"
-  },
-  "private": true,
-  "scripts": {
-    "dev": "bunx vite",
-    "build": "bunx vite build",
-    "lint": "bunx biome lint .",
-    "format": "bunx biome format . --write",
-    "preview": "bunx vite preview"
-  },
-  "type": "module"
+	"name": "worldwise",
+	"version": "1.0.0",
+	"dependencies": {
+		"@biomejs/biome": "^2.2.4",
+		"biome": "^0.3.3",
+		"json-server": "0.17.3",
+		"react": "^19.1.1",
+		"react-dom": "^19.1.1",
+		"react-router-dom": "^7.9.1",
+		"sass": "^1.92.1"
+	},
+	"devDependencies": {
+		"@vitejs/plugin-react": "^4.7.0",
+		"vite": "^7.1.5"
+	},
+	"private": true,
+	"scripts": {
+		"dev": "bunx vite",
+		"build": "bunx vite build",
+		"lint": "bunx biome lint .",
+		"format": "bunx biome format . --write",
+		"preview": "bunx vite preview",
+		"server": "json-server --watch data/cities.json --port 9000 --delay 500"
+	},
+	"type": "module"
 }
