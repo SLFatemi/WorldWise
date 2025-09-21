@@ -3,6 +3,7 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import City from "./components/City.jsx";
 import CityList from "./components/CityList.jsx";
 import CountryList from "./components/CountryList.jsx";
+import FormC from "./components/FormC.jsx";
 import AppLayout from "./pages/AppLayout.jsx";
 import Homepage from "./pages/Homepage.jsx";
 import Login from "./pages/Login.jsx";
@@ -54,7 +55,7 @@ function App() {
 						path={"countries"}
 						element={<CountryList cities={cities} isLoading={isLoading} />}
 					></Route>
-					<Route path={"form"} element={<p>Form</p>}></Route>
+					<Route path={"form"} element={<FormC />}></Route>
 				</Route>
 				<Route path={"*"} element={<PageNotFound />} />
 			</Routes>
