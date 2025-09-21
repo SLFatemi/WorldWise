@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-
+import City from "./components/City.jsx";
 import CityList from "./components/CityList.jsx";
 import CountryList from "./components/CountryList.jsx";
 import AppLayout from "./pages/AppLayout.jsx";
@@ -47,6 +47,9 @@ function App() {
 						path={"cities"}
 						element={<CityList cities={cities} isLoading={isLoading} />}
 					/>
+
+					<Route path={"cities/:id"} element={<City />} />
+
 					<Route
 						path={"countries"}
 						element={<CountryList cities={cities} isLoading={isLoading} />}

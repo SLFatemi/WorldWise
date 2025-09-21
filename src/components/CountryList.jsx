@@ -14,7 +14,7 @@ function CountryList({ cities, isLoading }) {
 	const contries = [
 		...new Set(
 			cities.map((city) => {
-				return { country: city.country, emoji: city.emoji };
+				return { country: city.country, emoji: city.emoji, id: city.id };
 			}),
 		),
 	];
