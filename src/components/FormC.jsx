@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import BackButton from "./BackButton.jsx";
 import ButtonC from "./ButtonC.jsx";
 import styles from "./FormC.module.css";
 
@@ -18,7 +19,7 @@ function FormC() {
 	const [country, setCountry] = useState("");
 	const [date, setDate] = useState(new Date());
 	const [notes, setNotes] = useState("");
-	const navigate = useNavigate();
+
 	return (
 		<form className={styles.form}>
 			<div className={styles.row}>
@@ -54,15 +55,7 @@ function FormC() {
 
 			<div className={styles.buttons}>
 				<ButtonC type={"primary"}>Add</ButtonC>
-				<ButtonC
-					type={"back"}
-					handleOnCLick={(e) => {
-						e.preventDefault();
-						navigate(-1);
-					}}
-				>
-					&larr; Back
-				</ButtonC>
+				<BackButton />
 			</div>
 		</form>
 	);
