@@ -1,10 +1,15 @@
 import { useEffect, useState } from "react";
+import DatePicker from "react-datepicker";
 import useUrlPosition from "../hooks/useUrlPosition.jsx";
 import BackButton from "./BackButton.jsx";
 import ButtonC from "./ButtonC.jsx";
 import styles from "./FormC.module.css";
 import Message from "./Message.jsx";
 import Spinner from "./Spinner.jsx";
+
+import "react-datepicker/dist/react-datepicker.css";
+import { useNavigate } from "react-router-dom";
+import { useCities } from "../context/CitiesProvider.jsx";
 
 export function convertToEmoji(countryCode) {
 	const codePoints = countryCode
@@ -15,6 +20,9 @@ export function convertToEmoji(countryCode) {
 }
 const URL = "https://api.bigdatacloud.net/data/reverse-geocode-client";
 function FormC() {
+	const { addCity, isLoading } = useCities();
+	const navigate = useNavigate();
+
 	const [date, setDate] = useState(new Date());
 	const [notes, setNotes] = useState("");
 
@@ -27,6 +35,7 @@ function FormC() {
 
 	useEffect(() => {
 		async function fetchCity() {
+			if (!mapLat && !mapLng) return;
 			try {
 				setIsLoadingGeoCoding(true);
 				setErrorGeoCoding("");
@@ -49,10 +58,30 @@ function FormC() {
 		fetchCity();
 	}, [mapLat, mapLng]);
 
+	async function handleSubmit(e) {
+		e.preventDefault();
+		if (!cityName || !date) return;
+		const newCity = {
+			cityName,
+			country,
+			countryEmoji,
+			date,
+			notes,
+			position: { lat: mapLat, lng: mapLng },
+		};
+		addCity(newCity);
+		navigate(`/app`);
+	}
+
+	if (!mapLng && !mapLat)
+		return <Message message={"Start by clicking on the map"} />;
 	if (isLoadingGeoCoding) return <Spinner />;
 	if (errorGeoCoding) return <Message message={errorGeoCoding} />;
 	return (
-		<form className={styles.form}>
+		<form
+			className={`${styles.form} ${isLoading ? styles.loading : ""}`}
+			onSubmit={handleSubmit}
+		>
 			<div className={styles.row}>
 				<label htmlFor="cityName">City name</label>
 				{/** biome-ignore lint/correctness/useUniqueElementIds: <Not needed> */}
@@ -66,11 +95,10 @@ function FormC() {
 
 			<div className={styles.row}>
 				<label htmlFor="date">When did you go to {cityName}?</label>
-				{/** biome-ignore lint/correctness/useUniqueElementIds: <Not needed> */}
-				<input
-					id="date"
-					onChange={(e) => setDate(e.target.value)}
-					value={date}
+				<DatePicker
+					onChange={(date) => setDate(date)}
+					selected={date}
+					dateFormat={"dd/MM/yyyy"}
 				/>
 			</div>
 
