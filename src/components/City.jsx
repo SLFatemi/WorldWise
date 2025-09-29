@@ -2,7 +2,6 @@ import { useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { useCities } from "../context/CitiesProvider.jsx";
 import BackButton from "./BackButton.jsx";
-import ButtonC from "./ButtonC.jsx";
 import styles from "./City.module.css";
 import Spinner from "./Spinner.jsx";
 
@@ -17,6 +16,7 @@ const formatDate = (date) =>
 function City() {
 	const { id } = useParams();
 	const { getCity, isLoading, currentCity } = useCities();
+	// biome-ignore lint/correctness/useExhaustiveDependencies: <>
 	useEffect(() => {
 		getCity(id);
 	}, [id]);
