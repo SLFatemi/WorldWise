@@ -7,18 +7,19 @@ import {
 	useMap,
 	useMapEvents,
 } from "react-leaflet";
-import { useNavigate, useSearchParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useCities } from "../context/CitiesProvider.jsx";
 import { useGeolocation } from "../hooks/useGeoLocation.jsx";
+import useUrlPosition from "../hooks/useUrlPosition.jsx";
 import ButtonC from "./ButtonC.jsx";
 import styles from "./MapC.module.css";
 
 function MapC() {
 	const { cities, currentCity } = useCities();
+	const navigate = useNavigate();
 	const [mapPosition, setMapPosition] = useState([40, 0]);
-	const [searchParams, setSearchParams] = useSearchParams();
-	const mapLat = searchParams.get("lat");
-	const mapLng = searchParams.get("lng");
+	const { mapLat, mapLng } = useUrlPosition();
+
 	const {
 		isLoading: isLoadingPosition,
 		position: geoPosition,
@@ -33,15 +34,14 @@ function MapC() {
 	useEffect(() => {
 		if (!geoPosition) return;
 		setMapPosition([geoPosition.lat, geoPosition.lng]);
-	}, [geoPosition]);
+		navigate(`form?lat=${geoPosition.lat}&lng=${geoPosition.lng}`);
+	}, [geoPosition, navigate]);
 
 	return (
 		<div className={styles.mapContainer}>
-			{!geoPosition && (
-				<ButtonC type={"position"} handleOnCLick={getPosition}>
-					{isLoadingPosition ? "loading..." : "use your position"}
-				</ButtonC>
-			)}{" "}
+			<ButtonC type={"position"} handleOnCLick={getPosition}>
+				{isLoadingPosition ? "loading..." : "use your position"}
+			</ButtonC>
 			<MapContainer className={styles.map} center={mapPosition} zoom={13}>
 				<TileLayer
 					attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
