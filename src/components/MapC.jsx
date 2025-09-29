@@ -9,23 +9,39 @@ import {
 } from "react-leaflet";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { useCities } from "../context/CitiesProvider.jsx";
+import { useGeolocation } from "../hooks/useGeoLocation.jsx";
+import ButtonC from "./ButtonC.jsx";
 import styles from "./MapC.module.css";
 
 function MapC() {
-	const navigate = useNavigate();
 	const { cities, currentCity } = useCities();
-
 	const [mapPosition, setMapPosition] = useState([40, 0]);
 	const [searchParams, setSearchParams] = useSearchParams();
 	const mapLat = searchParams.get("lat");
 	const mapLng = searchParams.get("lng");
+	const {
+		isLoading: isLoadingPosition,
+		position: geoPosition,
+		getPosition,
+	} = useGeolocation();
 
 	useEffect(() => {
 		if (!mapLng || !mapLat) return;
 		setMapPosition([mapLat, mapLng]);
 	}, [mapLat, mapLng]);
+
+	useEffect(() => {
+		if (!geoPosition) return;
+		setMapPosition([geoPosition.lat, geoPosition.lng]);
+	}, [geoPosition]);
+
 	return (
 		<div className={styles.mapContainer}>
+			{!geoPosition && (
+				<ButtonC type={"position"} handleOnCLick={getPosition}>
+					{isLoadingPosition ? "loading..." : "use your position"}
+				</ButtonC>
+			)}{" "}
 			<MapContainer className={styles.map} center={mapPosition} zoom={13}>
 				<TileLayer
 					attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
