@@ -27,10 +27,12 @@ function FormC() {
 	const [notes, setNotes] = useState("");
 
 	const { mapLat, mapLng } = useUrlPosition();
+
 	const [isLoadingGeoCoding, setIsLoadingGeoCoding] = useState(false);
 	const [cityName, setCityName] = useState("");
 	const [country, setCountry] = useState("");
 	const [errorGeoCoding, setErrorGeoCoding] = useState("");
+
 	const countryEmoji = convertToEmoji(country.countryCode ?? "");
 
 	useEffect(() => {
