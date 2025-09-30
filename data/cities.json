@@ -1,160 +1,28 @@
 {
   "cities": [
     {
-      "cityName": "Lisbon",
-      "country": "Portugal",
-      "emoji": "🇵🇹",
-      "date": "2027-10-31T15:59:59.138Z",
-      "notes": "My favorite city so far!",
-      "position": {
-        "lat": 38.727881642324164,
-        "lng": -9.140900099907554
-      },
-      "id": 73930385
-    },
-    {
-      "cityName": "Madrid",
-      "country": "Spain",
-      "emoji": "🇪🇸",
-      "date": "2027-07-15T08:22:53.976Z",
-      "notes": "",
-      "position": {
-        "lat": 40.46635901755316,
-        "lng": -3.7133789062500004
-      },
-      "id": 17806751
-    },
-    {
-      "cityName": "Berlin",
-      "country": "Germany",
-      "emoji": "🇩🇪",
-      "date": "2027-02-12T09:24:11.863Z",
-      "notes": "Amazing 😃",
-      "position": {
-        "lat": 52.53586782505711,
-        "lng": 13.376933665713324
-      },
-      "id": 98443197
-    },
-    {
-      "cityName": "Vilafames",
+      "cityName": "Halllowww",
       "country": "Spain",
       "countryEmoji": "",
-      "date": "2025-09-29T20:22:01.131Z",
-      "notes": "bae",
-      "position": {
-        "lat": "40.111940372564185",
-        "lng": "-0.040020674509007044"
-      },
-      "id": 98443198
-    },
-    {
-      "cityName": "Vilafames",
-      "country": "Spain",
-      "countryEmoji": "",
-      "date": "2025-09-29T20:24:25.186Z",
-      "notes": "Kir\n",
-      "position": {
-        "lat": "40.14200009156928",
-        "lng": "-0.06935653503398864"
-      },
-      "id": 98443199
-    },
-    {
-      "cityName": "Vall d'Alba",
-      "country": "Spain",
-      "countryEmoji": "",
-      "date": "2025-09-29T20:26:16.246Z",
-      "notes": "bae",
-      "position": {
-        "lat": "40.187255103279",
-        "lng": "-0.06695819849548146"
-      },
-      "id": 98443200
-    },
-    {
-      "cityName": "Salsadella",
-      "country": "Spain",
-      "countryEmoji": "",
-      "date": "2025-09-29T20:27:28.786Z",
-      "notes": "Hrllo",
-      "position": {
-        "lat": "40.41742433683631",
-        "lng": "0.18091165674435586"
-      },
-      "id": 98443201
-    },
-    {
-      "cityName": "Tehran",
-      "country": "Iran (Islamic Republic of)",
-      "countryEmoji": "",
-      "date": "2025-09-29T20:27:28.786Z",
-      "notes": "Bae",
-      "position": {
-        "lat": "35.740282580274496",
-        "lng": "51.51180401723588"
-      },
-      "id": 98443202
-    },
-    {
-      "cityName": "Yazd",
-      "country": "Iran (Islamic Republic of)",
-      "countryEmoji": "",
-      "date": "2025-09-29T20:27:28.786Z",
-      "notes": "YAZD!",
-      "position": {
-        "lat": "31.863522852420854",
-        "lng": "54.34608061778932"
-      },
-      "id": 98443203
-    },
-    {
-      "cityName": "Fasham",
-      "country": "Iran (Islamic Republic of)",
-      "countryEmoji": "",
-      "date": "2025-09-29T20:29:23.279Z",
+      "date": "2025-09-30T17:39:46.692Z",
       "notes": "",
       "position": {
-        "lat": "35.825455644385315",
-        "lng": "51.48414771939424"
+        "lat": "40.01931687944423",
+        "lng": "-0.060218150272859386"
       },
-      "id": 98443204
+      "id": 2
     },
     {
-      "cityName": "Fasham",
+      "cityName": "OLOUOM PAYE",
       "country": "Iran (Islamic Republic of)",
       "countryEmoji": "",
-      "date": "2025-09-29T20:30:32.251Z",
+      "date": "2025-09-30T17:41:15.005Z",
       "notes": "",
       "position": {
-        "lat": "35.81052099158983",
-        "lng": "51.44414368512917"
+        "lat": "35.744356211932384",
+        "lng": "51.5025479457903"
       },
-      "id": 98443205
-    },
-    {
-      "cityName": "Fasham",
-      "country": "Iran (Islamic Republic of)",
-      "countryEmoji": "",
-      "date": "2025-09-29T20:30:32.251Z",
-      "notes": "",
-      "position": {
-        "lat": "35.912915632665715",
-        "lng": "51.40772207545081"
-      },
-      "id": 98443206
-    },
-    {
-      "cityName": "Fasham",
-      "country": "Iran (Islamic Republic of)",
-      "countryEmoji": "",
-      "date": "2025-09-29T20:31:36.053Z",
-      "notes": "",
-      "position": {
-        "lat": "35.912915632665715",
-        "lng": "51.40772207545081"
-      },
-      "id": 98443207
+      "id": 4
     }
   ]
 }

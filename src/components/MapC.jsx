@@ -15,7 +15,7 @@ import ButtonC from "./ButtonC.jsx";
 import styles from "./MapC.module.css";
 
 function MapC() {
-	const { cities, currentCity } = useCities();
+	const { cities } = useCities();
 	const navigate = useNavigate();
 	const [mapPosition, setMapPosition] = useState([40, 0]);
 	const { mapLat, mapLng } = useUrlPosition();
@@ -31,11 +31,12 @@ function MapC() {
 		setMapPosition([mapLat, mapLng]);
 	}, [mapLat, mapLng]);
 
+	// biome-ignore lint/correctness/useExhaustiveDependencies: <Not needed>
 	useEffect(() => {
 		if (!geoPosition) return;
 		setMapPosition([geoPosition.lat, geoPosition.lng]);
 		navigate(`form?lat=${geoPosition.lat}&lng=${geoPosition.lng}`);
-	}, [geoPosition, navigate]);
+	}, [geoPosition]);
 
 	return (
 		<div className={styles.mapContainer}>

@@ -24,7 +24,7 @@
 		"lint": "bunx biome lint .",
 		"format": "bunx biome format . --write",
 		"preview": "bunx vite preview",
-		"server": "json-server --watch data/cities.json --port 9000 --delay 500"
+		"server": "json-server --watch data/cities.json --port 9000 --delay 100"
 	},
 	"type": "module"
 }
