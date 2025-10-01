@@ -1,5 +1,6 @@
 import MapC from "../components/MapC.jsx";
 import Sidebar from "../components/Sidebar.jsx";
+import User from "../components/User.jsx";
 import styles from "./AppLayout.module.css";
 
 function AppLayout() {
@@ -7,6 +8,7 @@ function AppLayout() {
 		<div className={styles.app}>
 			<Sidebar />
 			<MapC />
+			<User />
 		</div>
 	);
 }
