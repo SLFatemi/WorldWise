@@ -1,40 +1,40 @@
 {
-  "cities": [
-    {
-      "cityName": "Castello de la Plana",
-      "country": "Spain",
-      "countryEmoji": "",
-      "date": "2025-09-30T20:37:24.492Z",
-      "notes": "",
-      "position": {
-        "lat": "40.00221543961274",
-        "lng": "-0.0007203986347259496"
-      },
-      "id": 1
-    },
-    {
-      "cityName": "Castello de la Plana",
-      "country": "Spain",
-      "countryEmoji": "",
-      "date": "2025-09-30T20:37:26.213Z",
-      "notes": "",
-      "position": {
-        "lat": "40.01523862634699",
-        "lng": "-0.021475306405851498"
-      },
-      "id": 2
-    },
-    {
-      "cityName": "Castello de la Plana",
-      "country": "Spain",
-      "countryEmoji": "",
-      "date": "2025-09-30T20:37:29.449Z",
-      "notes": "",
-      "position": {
-        "lat": "40.0047063330349",
-        "lng": "-0.011715130599490033"
-      },
-      "id": 3
-    }
-  ]
+	"cities": [
+		{
+			"cityName": "Castello de la Plana",
+			"country": "Spain",
+			"countryEmoji": "",
+			"date": "2025-09-30T20:37:24.492Z",
+			"notes": "",
+			"position": {
+				"lat": "40.00221543961274",
+				"lng": "-0.0007203986347259496"
+			},
+			"id": 1
+		},
+		{
+			"cityName": "Castello de la Plana",
+			"country": "Spain",
+			"countryEmoji": "",
+			"date": "2025-09-30T20:37:26.213Z",
+			"notes": "",
+			"position": {
+				"lat": "40.01523862634699",
+				"lng": "-0.021475306405851498"
+			},
+			"id": 2
+		},
+		{
+			"cityName": "Castello de la Plana",
+			"country": "Spain",
+			"countryEmoji": "",
+			"date": "2025-09-30T20:37:29.449Z",
+			"notes": "",
+			"position": {
+				"lat": "40.0047063330349",
+				"lng": "-0.011715130599490033"
+			},
+			"id": 3
+		}
+	]
 }
