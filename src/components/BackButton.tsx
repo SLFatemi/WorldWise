@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router-dom";
-import ButtonC from "./ButtonC.jsx";
+import ButtonC from "./ButtonC";
 
 function BackButton() {
 	const navigate = useNavigate();

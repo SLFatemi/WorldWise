@@ -1,36 +1,39 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, type FormEvent } from "react";
 import DatePicker from "react-datepicker";
-import useUrlPosition from "../hooks/useUrlPosition.jsx";
-import BackButton from "./BackButton.jsx";
-import ButtonC from "./ButtonC.jsx";
+import useUrlPosition from "../hooks/useUrlPosition";
+import BackButton from "./BackButton";
+import ButtonC from "./ButtonC";
 import styles from "./FormC.module.css";
-import Message from "./Message.jsx";
-import Spinner from "./Spinner.jsx";
+import Message from "./Message";
+import Spinner from "./Spinner";
 
 import "react-datepicker/dist/react-datepicker.css";
 import { useNavigate } from "react-router-dom";
-import { useCities } from "../context/CitiesProvider.jsx";
+import { useCities } from "../context/CitiesProvider";
+import type { GeocodingResponse } from "../types";
 
-export function convertToEmoji(countryCode) {
+export function convertToEmoji(countryCode: string): string {
 	const codePoints = countryCode
 		.toUpperCase()
 		.split("")
-		.map((char) => 127397 + char.charCodeAt());
+		.map((char) => 127397 + char.charCodeAt(0));
 	return String.fromCodePoint(...codePoints);
 }
+
 const URL = "https://api.bigdatacloud.net/data/reverse-geocode-client";
+
 function FormC() {
 	const { addCity, isLoading } = useCities();
 	const navigate = useNavigate();
 
-	const [date, setDate] = useState(new Date());
+	const [date, setDate] = useState<Date | null>(new Date());
 	const [notes, setNotes] = useState("");
 
 	const { mapLat, mapLng } = useUrlPosition();
 
 	const [isLoadingGeoCoding, setIsLoadingGeoCoding] = useState(false);
 	const [cityName, setCityName] = useState("");
-	const [country, setCountry] = useState("");
+	const [country, setCountry] = useState<GeocodingResponse>({});
 	const [errorGeoCoding, setErrorGeoCoding] = useState("");
 
 	const countryEmoji = convertToEmoji(country.countryCode ?? "");
@@ -45,12 +48,12 @@ function FormC() {
 					`${URL}?latitude=${mapLat}&longitude=${mapLng}`,
 				);
 				if (!res.ok) throw new Error(`an Error occurred${res.status}`);
-				const data = await res.json();
+				const data: GeocodingResponse = await res.json();
 				if (!data.countryCode) throw new Error(`That's not a city`);
 				setCityName(data.city || data.locality || "");
-				setCountry(data.countryName || data.locality || "");
+				setCountry(data);
 			} catch (err) {
-				setErrorGeoCoding(err.message);
+				setErrorGeoCoding((err as Error).message);
 			} finally {
 				setIsLoadingGeoCoding(false);
 			}
@@ -60,18 +63,18 @@ function FormC() {
 		fetchCity();
 	}, [mapLat, mapLng]);
 
-	async function handleSubmit(e) {
+	async function handleSubmit(e: FormEvent<HTMLFormElement>) {
 		e.preventDefault();
 		if (!cityName || !date) return;
 		const newCity = {
 			cityName,
-			country,
-			countryEmoji,
-			date,
+			country: country.countryName || country.locality || "",
+			emoji: countryEmoji,
+			date: date.toISOString(),
 			notes,
-			position: { lat: mapLat, lng: mapLng },
+			position: { lat: Number(mapLat), lng: Number(mapLng) },
 		};
-		addCity(newCity);
+		await addCity(newCity);
 		navigate(`/app`);
 	}
 

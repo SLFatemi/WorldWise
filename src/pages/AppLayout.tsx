@@ -1,6 +1,6 @@
-import MapC from "../components/MapC.jsx";
-import Sidebar from "../components/Sidebar.jsx";
-import User from "../components/User.jsx";
+import MapC from "../components/MapC";
+import Sidebar from "../components/Sidebar";
+import User from "../components/User";
 import styles from "./AppLayout.module.css";
 
 function AppLayout() {

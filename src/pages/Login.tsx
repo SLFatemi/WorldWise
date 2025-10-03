@@ -1,9 +1,9 @@
 /** biome-ignore-all lint/correctness/useExhaustiveDependencies: <explanation> */
-import { useEffect, useState } from "react";
+import { useEffect, useState, type FormEvent } from "react";
 import { useNavigate } from "react-router-dom";
-import ButtonC from "../components/ButtonC.jsx";
-import PageNav from "../components/PageNav.jsx";
-import { useAuth } from "../context/AuthProvider.jsx";
+import ButtonC from "../components/ButtonC";
+import PageNav from "../components/PageNav";
+import { useAuth } from "../context/AuthProvider";
 import styles from "./Login.module.css";
 
 export default function Login() {
@@ -17,7 +17,7 @@ export default function Login() {
 		if (isAuthenticated) navigate("/app", { replace: true });
 	}, [isAuthenticated]);
 
-	function handleLogin(e) {
+	function handleLogin(e: FormEvent<HTMLFormElement>) {
 		e.preventDefault();
 		if (!email || !password) return;
 		login(email, password);

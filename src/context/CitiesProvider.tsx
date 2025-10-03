@@ -1,15 +1,39 @@
-import { createContext, useContext, useEffect, useReducer } from "react";
+import {
+	createContext,
+	useCallback,
+	useContext,
+	useEffect,
+	useReducer,
+	type ReactNode,
+} from "react";
+import type { City, CitiesContextType } from "../types";
 
 const URL = "http://localhost:9000";
-const CitiesContext = createContext();
+const CitiesContext = createContext<CitiesContextType | undefined>(undefined);
 
-const initialState = {
+interface CitiesState {
+	cities: City[];
+	isLoading: boolean;
+	currentCity: City | Record<string, never>;
+	error: string;
+}
+
+type CitiesAction =
+	| { type: "loading" }
+	| { type: "cities/loaded"; payload: City[] }
+	| { type: "city/loaded"; payload: City }
+	| { type: "city/added"; payload: City }
+	| { type: "city/removed"; payload: City }
+	| { type: "rejected"; payload: string };
+
+const initialState: CitiesState = {
 	cities: [],
 	isLoading: false,
 	currentCity: {},
 	error: "",
 };
-function reducer(state, action) {
+
+function reducer(state: CitiesState, action: CitiesAction): CitiesState {
 	switch (action.type) {
 		case "loading":
 			return { ...state, isLoading: true };
@@ -39,7 +63,12 @@ function reducer(state, action) {
 			throw new Error("Not Supported");
 	}
 }
-function CitiesProvider({ children }) {
+
+interface CitiesProviderProps {
+	children: ReactNode;
+}
+
+function CitiesProvider({ children }: CitiesProviderProps) {
 	const [{ cities, isLoading, currentCity }, dispatch] = useReducer(
 		reducer,
 		initialState,
@@ -55,28 +84,32 @@ function CitiesProvider({ children }) {
 			} catch (e) {
 				dispatch({
 					type: "rejected",
-					payload: `There was an error loading cities (${e.status})`,
+					payload: `There was an error loading cities`,
 				});
 			}
 		}
 		fetchCities();
 	}, []);
 
-	async function getCity(id) {
-		if (+id === currentCity.id) return;
-		dispatch({ type: "loading" });
-		try {
-			const res = await fetch(`${URL}/cities/${id}`);
-			const data = await res.json();
-			dispatch({ type: "city/loaded", payload: data });
-		} catch (e) {
-			dispatch({
-				type: "rejected",
-				payload: `There was an error loading the city (${e.status})`,
-			});
-		}
-	}
-	async function addCity(city) {
+	const getCity = useCallback(
+		async (id: string | number) => {
+			if (+id === (currentCity as City).id) return;
+			dispatch({ type: "loading" });
+			try {
+				const res = await fetch(`${URL}/cities/${id}`);
+				const data = await res.json();
+				dispatch({ type: "city/loaded", payload: data });
+			} catch (e) {
+				dispatch({
+					type: "rejected",
+					payload: `There was an error loading the city`,
+				});
+			}
+		},
+		[(currentCity as City).id],
+	);
+
+	async function addCity(city: Omit<City, "id">) {
 		dispatch({ type: "loading" });
 		try {
 			const res = await fetch(`${URL}/cities`, {
@@ -89,11 +122,12 @@ function CitiesProvider({ children }) {
 		} catch (e) {
 			dispatch({
 				type: "rejected",
-				payload: `There was an error adding the city (${e.status})`,
+				payload: `There was an error adding the city`,
 			});
 		}
 	}
-	async function removeCity(cityToRemove) {
+
+	async function removeCity(cityToRemove: City) {
 		dispatch({ type: "loading" });
 		try {
 			await fetch(`${URL}/cities/${cityToRemove.id}`, {
@@ -103,7 +137,7 @@ function CitiesProvider({ children }) {
 		} catch (e) {
 			dispatch({
 				type: "rejected",
-				payload: `There was an error deleting the city (${e.status})`,
+				payload: `There was an error deleting the city`,
 			});
 		}
 	}
@@ -124,9 +158,10 @@ function CitiesProvider({ children }) {
 	);
 }
 
-function useCities() {
+function useCities(): CitiesContextType {
 	const context = useContext(CitiesContext);
 	if (!context) throw new Error("useCities must be used within the provider");
 	return context;
 }
+
 export { CitiesProvider, useCities };

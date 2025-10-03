@@ -1,8 +1,12 @@
-import { useEffect } from "react";
+import { useEffect, type ReactNode } from "react";
 import { useNavigate } from "react-router-dom";
-import { useAuth } from "../context/AuthProvider.jsx";
+import { useAuth } from "../context/AuthProvider";
 
-function ProtectedRoute({ children }) {
+interface ProtectedRouteProps {
+	children: ReactNode;
+}
+
+function ProtectedRoute({ children }: ProtectedRouteProps) {
 	const { isAuthenticated } = useAuth();
 	const navigate = useNavigate();
 

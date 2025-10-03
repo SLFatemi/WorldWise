@@ -1,27 +1,31 @@
 import { useEffect } from "react";
 import { useParams } from "react-router-dom";
-import { useCities } from "../context/CitiesProvider.jsx";
-import BackButton from "./BackButton.jsx";
+import { useCities } from "../context/CitiesProvider";
+import type { City } from "../types";
+import BackButton from "./BackButton";
 import styles from "./City.module.css";
-import Spinner from "./Spinner.jsx";
+import Spinner from "./Spinner";
 
-const formatDate = (date) =>
-	new Intl.DateTimeFormat("en", {
-		day: "numeric",
-		month: "long",
-		year: "numeric",
-		weekday: "long",
-	}).format(new Date(date));
+const formatDate = (date: string | undefined) =>
+	date
+		? new Intl.DateTimeFormat("en", {
+				day: "numeric",
+				month: "long",
+				year: "numeric",
+				weekday: "long",
+			}).format(new Date(date))
+		: "";
 
 function City() {
-	const { id } = useParams();
+	const { id } = useParams<{ id: string }>();
 	const { getCity, isLoading, currentCity } = useCities();
-	// biome-ignore lint/correctness/useExhaustiveDependencies: <>
-	useEffect(() => {
-		getCity(id);
-	}, [id]);
 
-	const { cityName, emoji, date, notes } = currentCity;
+	useEffect(() => {
+		if (id) getCity(id);
+	}, [id, getCity]);
+
+	const city = currentCity as City;
+	const { cityName, emoji, date, notes } = city;
 	if (isLoading) return <Spinner />;
 	return (
 		<div className={styles.city}>
@@ -34,7 +38,7 @@ function City() {
 
 			<div className={styles.row}>
 				<h6>You went to {cityName} on</h6>
-				<p>{formatDate(date || null)}</p>
+				<p>{formatDate(date)}</p>
 			</div>
 
 			{notes && (

@@ -8,16 +8,16 @@ import {
 	useMapEvents,
 } from "react-leaflet";
 import { useNavigate } from "react-router-dom";
-import { useCities } from "../context/CitiesProvider.jsx";
-import { useGeolocation } from "../hooks/useGeoLocation.jsx";
-import useUrlPosition from "../hooks/useUrlPosition.jsx";
-import ButtonC from "./ButtonC.jsx";
+import { useCities } from "../context/CitiesProvider";
+import { useGeolocation } from "../hooks/useGeoLocation";
+import useUrlPosition from "../hooks/useUrlPosition";
+import ButtonC from "./ButtonC";
 import styles from "./MapC.module.css";
 
 function MapC() {
 	const { cities } = useCities();
 	const navigate = useNavigate();
-	const [mapPosition, setMapPosition] = useState([40, 0]);
+	const [mapPosition, setMapPosition] = useState<[number, number]>([40, 0]);
 	const { mapLat, mapLng } = useUrlPosition();
 
 	const {
@@ -28,7 +28,7 @@ function MapC() {
 
 	useEffect(() => {
 		if (!mapLng || !mapLat) return;
-		setMapPosition([mapLat, mapLng]);
+		setMapPosition([Number(mapLat), Number(mapLng)]);
 	}, [mapLat, mapLng]);
 
 	// biome-ignore lint/correctness/useExhaustiveDependencies: <Not needed>
@@ -66,15 +66,22 @@ function MapC() {
 	);
 }
 
-function ChangeCenter({ pos }) {
+interface ChangeCenterProps {
+	pos: [number, number];
+}
+
+function ChangeCenter({ pos }: ChangeCenterProps) {
 	const map = useMap();
 	map.setView(pos);
 	return null;
 }
+
 function DetectClick() {
 	const navigate = useNavigate();
 	useMapEvents({
 		click: (e) => navigate(`form?lat=${e.latlng.lat}&lng=${e.latlng.lng}`),
 	});
+	return null;
 }
+
 export default MapC;

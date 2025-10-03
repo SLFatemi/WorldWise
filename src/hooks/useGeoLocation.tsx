@@ -1,9 +1,19 @@
 import { useState } from "react";
+import type { Position } from "../types";
 
-export function useGeolocation(defaultPosition = null) {
+interface UseGeolocationReturn {
+	isLoading: boolean;
+	position: Position | null;
+	error: string | null;
+	getPosition: () => void;
+}
+
+export function useGeolocation(
+	defaultPosition: Position | null = null,
+): UseGeolocationReturn {
 	const [isLoading, setIsLoading] = useState(false);
-	const [position, setPosition] = useState(defaultPosition);
-	const [error, setError] = useState(null);
+	const [position, setPosition] = useState<Position | null>(defaultPosition);
+	const [error, setError] = useState<string | null>(null);
 
 	function getPosition() {
 		if (!navigator.geolocation)

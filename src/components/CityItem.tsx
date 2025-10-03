@@ -1,19 +1,24 @@
 import { Link } from "react-router-dom";
-import { useCities } from "../context/CitiesProvider.jsx";
+import { useCities } from "../context/CitiesProvider";
+import type { City } from "../types";
 import styles from "./CityItem.module.css";
 
-const formatDate = (date) =>
+const formatDate = (date: string) =>
 	new Intl.DateTimeFormat("en", {
 		day: "numeric",
 		month: "long",
 		year: "numeric",
 	}).format(new Date(date));
 
-function CityItem({ city }) {
+interface CityItemProps {
+	city: City;
+}
+
+function CityItem({ city }: CityItemProps) {
 	const { cityName, emoji, date, id, position } = city;
 	const { lat, lng } = position;
 	const { currentCity, removeCity } = useCities();
-	const isCurrent = id === currentCity.id;
+	const isCurrent = id === (currentCity as City).id;
 	return (
 		<li>
 			<Link

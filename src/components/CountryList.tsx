@@ -1,8 +1,9 @@
-import { useCities } from "../context/CitiesProvider.jsx";
-import CountryItem from "./CountryItem.jsx";
+import { useCities } from "../context/CitiesProvider";
+import type { Country } from "../types";
+import CountryItem from "./CountryItem";
 import styles from "./CountryList.module.css";
-import Message from "./Message.jsx";
-import Spinner from "./Spinner.jsx";
+import Message from "./Message";
+import Spinner from "./Spinner";
 
 function CountryList() {
 	const { cities, isLoading } = useCities();
@@ -13,16 +14,17 @@ function CountryList() {
 				message={"Add your first city by clicking on a city on the map"}
 			/>
 		);
-	const contries = [
-		...new Set(
-			cities.map((city) => {
-				return { country: city.country, emoji: city.emoji, id: city.id };
-			}),
-		),
+	const countries: Country[] = [
+		...new Map(
+			cities.map((city) => [
+				city.id,
+				{ country: city.country, emoji: city.emoji, id: city.id },
+			]),
+		).values(),
 	];
 	return (
 		<ul className={styles.countryList}>
-			{contries.map((country) => (
+			{countries.map((country) => (
 				<CountryItem key={country.id} country={country} />
 			))}
 		</ul>
